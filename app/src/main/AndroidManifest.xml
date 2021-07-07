@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.cjs.hegui30">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher_foreground"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Hegui30">
+
+        <!--  标志该 apk 为一个 Xposed 模块，供 Xposed 框架识别-->
+        <meta-data
+            android:name="xposedmodule"
+            android:value="true" />
+
+        <!--模块说明，一般为模块的功能描述-->
+        <meta-data
+            android:name="xposeddescription"
+            android:value="这个模块是用来检测用户隐私合规的，在用户未授权同意前，调用接口获取信息属于违规" />
+
+        <!--模块兼容版本-->
+        <meta-data
+            android:name="xposedminversion"
+            android:value="54" />
+
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
