@@ -1,38 +1,37 @@
 package com.cjs.hegui30;
 
-import android.app.Activity;
 import android.content.ContentResolver;
 import android.location.LocationManager;
 import android.util.Log;
-import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
-import android.widget.Toast;
-
-import java.lang.reflect.Field;
-import java.util.Map;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
-import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
-import static de.robv.android.xposed.XposedHelpers.findField;
+/**
+ * 合规检测、方法调用栈追踪xposed模块
+ *
+ * @author JasonChen
+ * @email chenjunsen@outlook.com
+ * @createTime 2021/7/12 8:29
+ */
+public class HookTrack implements IXposedHookLoadPackage {
+    private static final String TAG = "HookTrack";
 
-public class HookLogin implements IXposedHookLoadPackage {
-    private static final String TAG = "HookLogin";
     /**
-     * 需要Hook的包名
+     * 需要Hook的包名白名单
      */
     private static String[] whiteList = {"com.cjs.drv", "com.bw30.zsch", "com.bw30.zsch.magic"};
 
+    @Override
     public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpparam) {
 
         if (lpparam == null) {
             return;
         }
 
-        Log.e(TAG, "Load app packageName:" + lpparam.packageName);
+        Log.e(TAG, "开始加载package:" + lpparam.packageName);
         /*判断hook的包名*/
         boolean res = false;
         for (String pkgName : whiteList) {
@@ -42,13 +41,9 @@ public class HookLogin implements IXposedHookLoadPackage {
             }
         }
         if (!res) {
-            Log.e("HookHook", "不符合的包:" + lpparam.packageName);
+            Log.e(TAG, "不符合的包:" + lpparam.packageName);
             return;
         }
-
-//        if (!"com.xunlei.downloadprovider".equals(lpparam.packageName)) {
-//            return;
-//        }
 
         //固定格式
         XposedHelpers.findAndHookMethod(

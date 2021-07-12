@@ -1,7 +1,5 @@
 package com.cjs.hegui30;
 
-import android.util.Log;
-
 import java.util.Map;
 
 import de.robv.android.xposed.XC_MethodHook;

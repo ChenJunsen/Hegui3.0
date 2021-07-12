@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">合规3.0</string>
+    <string name="desc">这是一个用于工信部合规检测的xposed模块，安装好这个apk后，就会在xposed中被识别为一个xposed模块</string>
 </resources>
