@@ -101,6 +101,31 @@ public class HookTrack implements IXposedHookLoadPackage {
         );
 
         XposedHelpers.findAndHookMethod(
+                android.telephony.TelephonyManager.class.getName(),
+                lpparam.classLoader,
+                "getImei",
+                new DumpMethodHook() {
+                    @Override
+                    protected void beforeHookedMethod(MethodHookParam param) {
+                        XposedBridge.log(lpparam.packageName + "调用getImei获取了imei");
+                    }
+                }
+        );
+
+        XposedHelpers.findAndHookMethod(
+                android.telephony.TelephonyManager.class.getName(),
+                lpparam.classLoader,
+                "getImei",
+                int.class,
+                new DumpMethodHook() {
+                    @Override
+                    protected void beforeHookedMethod(MethodHookParam param) {
+                        XposedBridge.log(lpparam.packageName + "调用getImei(int)获取了imei");
+                    }
+                }
+        );
+
+        XposedHelpers.findAndHookMethod(
                 android.net.wifi.WifiInfo.class.getName(),
                 lpparam.classLoader,
                 "getMacAddress",
@@ -134,19 +159,6 @@ public class HookTrack implements IXposedHookLoadPackage {
                     @Override
                     protected void beforeHookedMethod(MethodHookParam param) {
                         XposedBridge.log(lpparam.packageName + "调用Settings.Secure.getstring获取了" + param.args[1]);
-                    }
-                }
-        );
-
-        XposedHelpers.findAndHookMethod(
-                LocationManager.class.getName(),
-                lpparam.classLoader,
-                "getLastKnownLocation",
-                String.class,
-                new DumpMethodHook() {
-                    @Override
-                    protected void beforeHookedMethod(MethodHookParam param) {
-                        XposedBridge.log(lpparam.packageName + "调用getLastKnownLocation获取了GPS地址");
                     }
                 }
         );
