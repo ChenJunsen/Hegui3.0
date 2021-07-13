@@ -150,5 +150,31 @@ public class HookTrack implements IXposedHookLoadPackage {
                     }
                 }
         );
+
+        XposedHelpers.findAndHookMethod(
+                LocationManager.class.getName(),
+                lpparam.classLoader,
+                "getLastKnownLocation",
+                String.class,
+                new DumpMethodHook() {
+                    @Override
+                    protected void beforeHookedMethod(MethodHookParam param) {
+                        XposedBridge.log(lpparam.packageName + "调用getLastKnownLocation获取了GPS地址");
+                    }
+                }
+        );
+
+        XposedHelpers.findAndHookMethod(
+                LocationManager.class.getName(),
+                lpparam.classLoader,
+                "requestLocationUpdates",
+                String.class,
+                new DumpMethodHook() {
+                    @Override
+                    protected void beforeHookedMethod(MethodHookParam param) {
+                        XposedBridge.log(lpparam.packageName + "调用requestLocationUpdates获取了GPS地址");
+                    }
+                }
+        );
     }
 }
