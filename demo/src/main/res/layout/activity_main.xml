@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:gravity="center_horizontal"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:drawablePadding="10dp"
+        android:drawableTop="@mipmap/ic_launcher"
+        android:text="这是一个合规检测的测试程序"
+        android:textColor="@color/teal_700"/>
+
+    <com.cjs.hegui30.demo.AutoDismissTextView
+        android:id="@+id/tv_display"
+        android:background="#673AB7"
+        android:padding="4dp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="#C83A6B"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/btn_getIMSI"
+        android:layout_width="match_parent"
+        android:layout_marginTop="40dp"
+        android:text="模拟获取IMSI"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/btn_getMAC"
+        android:layout_width="match_parent"
+        android:text="模拟获取MAC"
+        android:layout_height="wrap_content"/>
+
+
+    <Button
+        android:id="@+id/btn_getIGPS"
+        android:layout_width="match_parent"
+        android:text="模拟获取GPS"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/btn_getIMEI"
+        android:layout_width="match_parent"
+        android:text="模拟获取DeviceId"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

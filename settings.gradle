@@ -1,2 +1,3 @@
 rootProject.name = "Hegui3.0"
 include ':app'
+include ':demo'
