@@ -22,7 +22,12 @@ public class HookTrack implements IXposedHookLoadPackage {
     /**
      * 需要Hook的包名白名单
      */
-    private static String[] whiteList = {"com.cjs.drv", "com.bw30.zsch", "com.bw30.zsch.magic"};
+    private static final String[] whiteList = {
+            "com.cjs.drv",
+            "com.bw30.zsch",
+            "com.bw30.zsch.magic",
+            "com.cjs.hegui30.demo"
+    };
 
     @Override
     public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpparam) {
