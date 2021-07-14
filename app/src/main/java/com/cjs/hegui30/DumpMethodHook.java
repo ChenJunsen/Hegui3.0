@@ -50,7 +50,7 @@ public abstract class DumpMethodHook extends XC_MethodHook {
     }
 
     /**
-     * dump模式2：类工信部报告模式
+     * dump模式2：类信通院报告模式
      */
     private static void dump2(){
         XposedBridge.log("Dump Stack: "+"---------------start----------------");
