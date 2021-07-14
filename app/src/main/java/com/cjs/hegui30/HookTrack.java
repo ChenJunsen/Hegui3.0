@@ -75,18 +75,6 @@ public class HookTrack implements IXposedHookLoadPackage {
                 }
         );
 
-//            XposedHelpers.findAndHookMethod(
-//                    "com.android.internal.telephony.PhoneSubInfo",
-//                    lpparam.classLoader,
-//                    "getDeviceId",
-//                    new XC_MethodHook() {
-//                        @Override
-//                        protected void beforeHookedMethod(MethodHookParam param) {
-//                            XposedBridge.log("调用PhoneSubInfo的getDeviceId()获取了imei");
-//                        }
-//                    }
-//            );
-
         XposedHelpers.findAndHookMethod(
                 android.telephony.TelephonyManager.class.getName(),
                 lpparam.classLoader,
