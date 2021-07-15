@@ -397,8 +397,7 @@ com.cjs.hegui30.HookTrack
 这样我们就写好了自定义的xposed模块。Xposed在加载的时候会从这个文件里面读取需要初始化的类。
 至此，我们的所有代码就编写完成了，此时装在手机后，可以在xposed installer里面识别激活了。
 
-# 下载
-源码已上传到:[github](https://github.com/ChenJunsen/Hegui3.0)和[gitee](https://gitee.com/android_apes/Hegui3.0)
+# 其他
 源码同时捆绑了一个快速测试的demo和相关的apk文件，demo可以单独编译成apk,记得切换
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/2021071416320853.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NqczE1MzQ3MTcwNDA=,size_16,color_FFFFFF,t_70#pic_center)
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210714163221242.png#pic_center)
