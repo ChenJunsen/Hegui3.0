@@ -401,3 +401,133 @@ com.cjs.hegui30.HookTrack
 源码同时捆绑了一个快速测试的demo和相关的apk文件，demo可以单独编译成apk,记得切换
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/2021071416320853.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NqczE1MzQ3MTcwNDA=,size_16,color_FFFFFF,t_70#pic_center)
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210714163221242.png#pic_center)
+
+---
+
+# 操作手册
+
+# 一、准备条件
+## 1、编译合规检测的Xposed模块源码
+
+下载源码，修改设置白名单，编译成apk，安装到手机
+相关操作参考[《安卓端自行实现工信部要求的隐私合规检测一(教你手写Xposed模块代码)》](https://blog.csdn.net/cjs1534717040/article/details/118721277)
+> **注意:源码里面包含了各种安装包及demo**
+
+## 2、已经root的手机可以下载Xposed.apk
+
+Xposed在github上面开源，可以自己下载[**XposedInstaller**](https://github.com/rovo89/XposedInstaller)的源码进行编译，也可以直接下载已经编译好的apk。
+> 需要注意的是，安卓5以上和以下的安装版本是不一样的
+> [**支持安卓5及以上的XposedInstaller**](https://gitee.com/android_apes/Hegui3.0/raw/master/%E6%A3%80%E6%B5%8B%E5%BF%85%E8%A6%81%E6%96%87%E4%BB%B6/xposed.installer3.1.5%28%E9%80%82%E5%90%88%E5%AE%89%E5%8D%935%E4%BB%A5%E4%B8%8A%E7%9A%84%E6%89%8B%E6%9C%BA%29.apk) 
+> [**支持安卓5以下的XposedInstaller**](https://gitee.com/android_apes/Hegui3.0/raw/master/%E6%A3%80%E6%B5%8B%E5%BF%85%E8%A6%81%E6%96%87%E4%BB%B6/xposed.installer_v33_36570c%28%E9%80%82%E5%90%88%E5%AE%89%E5%8D%935%E4%BB%A5%E4%B8%8B%E7%9A%84%E6%89%8B%E6%9C%BA%29.apk)
+
+## 3、没有root的手机可以下载VirtualXposed.apk
+
+VirtualXposed在github上面有专门的[**release**](https://github.com/android-hacker/VirtualXposed/releases)页面，其作者在0.20.x的版本的时候放弃了对32位应用的支持，理由是谷歌商店未来只允许64位的app上架，不想花更多精力维护32位的开发。如果你的app为32位应用，因此不能用0.20.x及之后版本的VirtualXposed
+> **[0.20.3版本(支持64位应用)](https://gitee.com/android_apes/Hegui3.0/raw/master/%E6%A3%80%E6%B5%8B%E5%BF%85%E8%A6%81%E6%96%87%E4%BB%B6/VirtualXposed_0.20.3%28%E9%80%82%E5%90%8864%E4%BD%8Dapp%29.apk)**
+> **[0.18.2版本(支持32位应用)](https://gitee.com/android_apes/Hegui3.0/raw/master/%E6%A3%80%E6%B5%8B%E5%BF%85%E8%A6%81%E6%96%87%E4%BB%B6/VirtualXposed_0.18.2%28%E9%80%82%E5%90%8832%E4%BD%8Dapp%29.apk)** 
+> **注意:由于0.20.x版本更换了包名，所以它和0.18.x的版本能同时安装**
+
+## 4、下载合规检测测试程序
+
+该项非必须，仅作为合规快速校验 
+> 下载地址:[**合规检测测试程序apk**](https://gitee.com/android_apes/Hegui3.0/raw/master/%E6%A3%80%E6%B5%8B%E5%BF%85%E8%A6%81%E6%96%87%E4%BB%B6/%E5%90%88%E8%A7%84%E6%A3%80%E6%B5%8B%E6%B5%8B%E8%AF%95%E7%A8%8B%E5%BA%8F.apk)
+---
+# 二、具体操作
+> 这里以对“[**合规检测测试程序**](https://gitee.com/android_apes/Hegui3.0/raw/master/%E6%A3%80%E6%B5%8B%E5%BF%85%E8%A6%81%E6%96%87%E4%BB%B6/%E5%90%88%E8%A7%84%E6%A3%80%E6%B5%8B%E6%B5%8B%E8%AF%95%E7%A8%8B%E5%BA%8F.apk)“的校验进行说明。
+
+## 1、安装
+ - **已root的用户**
+
+	
+
+	 1. 安装xposed.apk
+
+	 	
+
+> 在root手机上安装xposed框架的操作可能会比较麻烦，详情问问度娘
+
+	
+
+	 2. 安装合规检测xposed模块.apk
+	 3. 安装合规检测测试程序.apk
+
+ - **未root用户**
+
+	
+
+	 1. 先安装virtual-xposed.apk
+	 2. 后续操作有两种方案:
+
+> 	第一种可以和已root用户一样，直接将合规检测xposed模块.apk和合规检测测试程序.apk安装在手机真机上，然后在virtual-xposed里面克隆这两个app;
+> 第二种的话就是不在真机装，直接在virtual-xposed里面装，具体操作如下:
+
+ 1. 打开**virtual-xposed**，点击底部的**菜单**按钮，进入到virtual-xposed的菜单界面
+<div align="center">
+	<img src="https://img-blog.csdnimg.cn/20210715095447417.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NqczE1MzQ3MTcwNDA=,size_16,color_FFFFFF,t_70" width = "300" alt="图1" align=center />
+</div>
+
+ 2. 在菜单界面有两个关键点需要注意，一个是顶部的**添加应用**，一个是底部的**重启**。后者在激活模块的时候需要使用。这里我们先点击**添加应用**。
+ <div align="center">
+	<img src="https://img-blog.csdnimg.cn/20210715100616238.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NqczE1MzQ3MTcwNDA=,size_16,color_FFFFFF,t_70" width = "300" alt="图2" align=center />
+</div>
+
+ 3. 添加应用界面默认的tab项就是**克隆APP**，如果使用克隆的方式的话，就要先找到安装的合规检测xposed模块和合规检测测试程序，并勾选，然后选择底部的**安装**；如果选择的是虚拟机安装，就直接点击右下角的**加号**按钮，选择本地的apk安装包进行安装。
+ <div align="center">
+	<img src="https://img-blog.csdnimg.cn/20210715101257676.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NqczE1MzQ3MTcwNDA=,size_16,color_FFFFFF,t_70" width = "300" alt="图3" align=center />
+</div>
+
+ 4. 在克隆APP中，会弹出是否使用太极安装，我们还是选择**virtual-xposed安装**
+ <div align="center">
+	<img src="https://img-blog.csdnimg.cn/20210715101819206.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NqczE1MzQ3MTcwNDA=,size_16,color_FFFFFF,t_70" width = "300" alt="图4" align=center />
+</div>
+ 
+ 5. 安装完app后，下一步就是激活模块。我们返回到**1**中的界面，**上滑**，进入到app列表界面，在这里可以看见我们刚刚安装的3个app
+ <div align="center">
+	<img src="https://img-blog.csdnimg.cn/20210715102701144.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NqczE1MzQ3MTcwNDA=,size_16,color_FFFFFF,t_70" width = "300" alt="图5" align=center />
+</div>
+
+ 6. 最右边的那边Xposed Installer就是我们的xposed控制界面 ，点击进入。大大的绿勾表示我们的xposed框架已经激活。点击左上角**三杠**。
+<div align="center">
+	<img src="https://img-blog.csdnimg.cn/20210715102939132.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NqczE1MzQ3MTcwNDA=,size_16,color_FFFFFF,t_70" width = "300" alt="图6" align=center />
+</div>
+
+ 7. 在弹出来的菜单界面中有两个项要注意:**模块**用于**安装/卸载**xposed模块，**日志**用于查看合规检测的结果，后面会用到。这里我们点击**模块**。
+<div align="center">
+	<img src="https://img-blog.csdnimg.cn/20210715103119338.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NqczE1MzQ3MTcwNDA=,size_16,color_FFFFFF,t_70" width = "300" alt="图7" align=center />
+</div>
+ 
+ 8. 可以看见有一个合规检测的xposed模块，勾上它。勾上后需要重启系统。如果是root用户在真机下操作xposed框架，就需要真机重启。但是我们用的是virtual-xposed，所以只需要重启虚拟机就行了。这时候，返回到**2**的界面，点击**重启**。
+<div align="center">
+	<img src="https://img-blog.csdnimg.cn/20210715103340219.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NqczE1MzQ3MTcwNDA=,size_16,color_FFFFFF,t_70" width = "300" alt="图8" align=center />
+</div>
+ 
+ 9. 重启成功的话，底部会有提示语展示
+<div align="center">
+	<img src="https://img-blog.csdnimg.cn/20210715103551253.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NqczE1MzQ3MTcwNDA=,size_16,color_FFFFFF,t_70" width = "300" alt="图9-1" align=center />
+	<img src="https://img-blog.csdnimg.cn/20210715103629292.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NqczE1MzQ3MTcwNDA=,size_16,color_FFFFFF,t_70" width = "300" alt="图9-2" align=center />
+</div>
+
+## 2、如何检测
+
+ 1. 先打开我们安装的测试app
+
+> 里面有四个按钮，分别对应四种不同的检测条件，我们以第一种**模拟获取IMSI**来说明，***先别点击任何按钮***。
+<div align="center">
+	<img src="https://img-blog.csdnimg.cn/20210715103931453.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NqczE1MzQ3MTcwNDA=,size_16,color_FFFFFF,t_70" width = "300" alt="图10" align=center />
+</div>
+
+ 2. 查看日志
+
+回到我们在安装讲解中的第**7**步界面，里面有个**日志**选项，点击它。该界面右上角有**保存**按钮，还有个**三个点**的菜单按钮，点击菜单按钮后有两个项需要注意:
+
+>  - 立即清理日志会清空当前界面的所有日志，我们先点击**清空一下**。
+>  - **重新载入**会刷新最新的日志进界面。因为日志的显示不是自动的，要想看到最新的结果，就要手动刷新。
+ <div align="center">
+	<img src="https://img-blog.csdnimg.cn/20210715104617934.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NqczE1MzQ3MTcwNDA=,size_16,color_FFFFFF,t_70" width = "300" alt="图11-1" align=center />
+	<img src="https://img-blog.csdnimg.cn/20210715104640552.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NqczE1MzQ3MTcwNDA=,size_16,color_FFFFFF,t_70" width = "300" alt="图11-2" align=center />
+</div>
+
+接下来回到我们的测试app界面，点击模拟获取IMSI，然后再返回到日志界面，并且重新载入，接着就能看见如下的日志记录:
+![图12](https://img-blog.csdnimg.cn/20210715104836642.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NqczE1MzQ3MTcwNDA=,size_16,color_FFFFFF,t_70#pic_center)
+
+上面的截图主要针对virtual-xposed来讲的。对于xposed而言，操作大同小异。最大的区别就是xposed需要真实地重启手机，这点的话要麻烦一点。
