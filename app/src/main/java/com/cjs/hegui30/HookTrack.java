@@ -1,6 +1,8 @@
 package com.cjs.hegui30;
 
+import android.app.PendingIntent;
 import android.content.ContentResolver;
+import android.location.Criteria;
 import android.location.LocationManager;
 import android.util.Log;
 
@@ -169,6 +171,10 @@ public class HookTrack implements IXposedHookLoadPackage {
                 lpparam.classLoader,
                 "requestLocationUpdates",
                 String.class,
+                Long.class,
+                Float.class,
+                Criteria.class,
+                PendingIntent.class,
                 new DumpMethodHook() {
                     @Override
                     protected void beforeHookedMethod(MethodHookParam param) {
