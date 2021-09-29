@@ -3,7 +3,9 @@ package com.cjs.hegui30;
 import android.app.PendingIntent;
 import android.content.ContentResolver;
 import android.location.Criteria;
+import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Looper;
 import android.util.Log;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
@@ -171,10 +173,26 @@ public class HookTrack implements IXposedHookLoadPackage {
                 lpparam.classLoader,
                 "requestLocationUpdates",
                 String.class,
-                Long.class,
-                Float.class,
-                Criteria.class,
-                PendingIntent.class,
+                long.class,//注意，如果是基础类型，不要使用其对应的包装类，否则会找不到这个方法
+                float.class,
+                LocationListener.class,
+                new DumpMethodHook() {
+                    @Override
+                    protected void beforeHookedMethod(MethodHookParam param) {
+                        XposedBridge.log(lpparam.packageName + "调用requestLocationUpdates获取了GPS地址");
+                    }
+                }
+        );
+
+        XposedHelpers.findAndHookMethod(
+                LocationManager.class.getName(),
+                lpparam.classLoader,
+                "requestLocationUpdates",
+                String.class,
+                long.class,
+                float.class,
+                LocationListener.class,
+                Looper.class,
                 new DumpMethodHook() {
                     @Override
                     protected void beforeHookedMethod(MethodHookParam param) {

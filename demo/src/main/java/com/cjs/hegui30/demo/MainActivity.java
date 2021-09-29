@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.location.LocationManagerCompat;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -15,6 +16,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
@@ -126,13 +128,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (location == null) {
                 location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             }
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 10, new LocationListener() {
+            new Handler().postDelayed(new Runnable() {
+                @SuppressLint("MissingPermission")
                 @Override
-                public void onLocationChanged(@NonNull Location location) {
-                    Log.d("位置改变", "" + location);
-                    tv_display.setText("[位置改变]" + location);
+                public void run() {
+                    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 10, new LocationListener() {
+                        @Override
+                        public void onLocationChanged(@NonNull Location location) {
+                            Log.d("位置改变", "" + location);
+                            tv_display.setText("[位置改变]" + location);
+                        }
+                    });
                 }
-            });
+            },300);
             Log.d("位置", "" + location);
             tv_display.setText("[位置信息]" + location);
         }

@@ -29,8 +29,8 @@ public abstract class DumpMethodHook extends XC_MethodHook {
      */
     private static void dump() {
         for (Map.Entry<Thread, StackTraceElement[]> stackTrace : Thread.getAllStackTraces().entrySet()) {
-            Thread thread = (Thread) stackTrace.getKey();
-            StackTraceElement[] stack = (StackTraceElement[]) stackTrace.getValue();
+            Thread thread = stackTrace.getKey();
+            StackTraceElement[] stack = stackTrace.getValue();
             // 进行过滤
             if (thread.equals(Thread.currentThread())) {
                 continue;
