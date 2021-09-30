@@ -200,5 +200,42 @@ public class HookTrack implements IXposedHookLoadPackage {
                     }
                 }
         );
+
+      XposedHelpers.findAndHookMethod(
+          "android.app.ActivityManager",
+          lpparam.classLoader,
+          "getRunningAppProcesses",
+          new DumpMethodHook() {
+            @Override
+            protected void beforeHookedMethod(MethodHookParam param) {
+              XposedBridge.log(lpparam.packageName + "调用getRunningAppProcesses()获取了正在运行的App");
+            }
+          }
+      );
+
+
+      XposedHelpers.findAndHookMethod(
+          "android.app.ApplicationPackageManager",
+          lpparam.classLoader,
+          "getInstalledPackages", int.class,
+          new DumpMethodHook() {
+            @Override
+            protected void beforeHookedMethod(MethodHookParam param) {
+              XposedBridge.log(lpparam.packageName + "调用getInstalledPackages()获取了当前用户安装的所有软件包的列表");
+            }
+          }
+      );
+
+      XposedHelpers.findAndHookMethod(
+          "android.app.ApplicationPackageManager",
+          lpparam.classLoader,
+          "getInstalledApplications", int.class,
+          new DumpMethodHook() {
+            @Override
+            protected void beforeHookedMethod(MethodHookParam param) {
+              XposedBridge.log(lpparam.packageName + "调用getInstalledApplications()获取了当前用户安装的所有应用程序包的列表");
+            }
+          }
+      );
     }
 }
