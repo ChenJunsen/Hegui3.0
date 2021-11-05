@@ -1,9 +1,12 @@
 package com.cjs.hegui30;
 
+import static com.cjs.hegui30.HookTrack.TAG;
+
+import android.util.Log;
+
 import java.util.Map;
 
 import de.robv.android.xposed.XC_MethodHook;
-import de.robv.android.xposed.XposedBridge;
 
 
 /**
@@ -35,10 +38,10 @@ public abstract class DumpMethodHook extends XC_MethodHook {
             if (thread.equals(Thread.currentThread())) {
                 continue;
             }
-            XposedBridge.log("[Dump Stack]" + "**********线程名字：" + thread.getName() + "**********");
+            Log.d(TAG, "[Dump Stack]" + "**********线程名字：" + thread.getName() + "**********");
             int index = 0;
             for (StackTraceElement stackTraceElement : stack) {
-                XposedBridge.log("[Dump Stack]" + index + ": " + stackTraceElement.getClassName()
+                Log.d(TAG, "[Dump Stack]" + index + ": " + stackTraceElement.getClassName()
                         + "----" + stackTraceElement.getFileName()
                         + "----" + stackTraceElement.getLineNumber()
                         + "----" + stackTraceElement.getMethodName());
@@ -46,26 +49,14 @@ public abstract class DumpMethodHook extends XC_MethodHook {
             // 增加序列号
             index++;
         }
-        XposedBridge.log("[Dump Stack]" + "********************* over **********************");
+        Log.d(TAG, "[Dump Stack]" + "********************* over **********************");
     }
 
     /**
      * dump模式2：类信通院报告模式
      */
-    private static void dump2(){
-        XposedBridge.log("Dump Stack: "+"---------------start----------------");
+    private static void dump2() {
         Throwable ex = new Throwable();
-        StackTraceElement[] stackElements = ex.getStackTrace();
-        if (stackElements != null) {
-            for (int i= 0; i < stackElements.length; i++) {
-                StringBuilder sb=new StringBuilder("[方法栈调用]");
-                sb.append(i);
-                XposedBridge.log("[Dump Stack]"+i+": "+ stackElements[i].getClassName()
-                        +"----"+stackElements[i].getFileName()
-                        +"----" + stackElements[i].getLineNumber()
-                        +"----" +stackElements[i].getMethodName());
-            }
-        }
-        XposedBridge.log("Dump Stack: "+ "---------------over----------------");
+        Log.e(TAG,Thread.currentThread().getName(),ex);
     }
 }
