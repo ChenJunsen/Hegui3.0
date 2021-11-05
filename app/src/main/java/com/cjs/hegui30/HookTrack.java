@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.ContentResolver;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Looper;
 import android.provider.Settings;
@@ -255,6 +256,17 @@ public class HookTrack implements IXposedHookLoadPackage {
             @Override
             protected void beforeHookedMethod(MethodHookParam param) {
                 Log.w(TAG, lpparam.packageName + "调用getInstalledPackages()获取了当前用户安装的所有软件包的列表");
+            }
+          }
+      );
+      XposedHelpers.findAndHookMethod(
+              WifiManager.class.getName(),
+          lpparam.classLoader,
+          "getConnectionInfo",
+          new DumpMethodHook() {
+            @Override
+            protected void beforeHookedMethod(MethodHookParam param) {
+                Log.w(TAG, lpparam.packageName + "调用WifiManager.getConnectionInfo获取了wifi信息");
             }
           }
       );
