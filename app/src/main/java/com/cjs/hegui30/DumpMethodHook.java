@@ -57,6 +57,6 @@ public abstract class DumpMethodHook extends XC_MethodHook {
      */
     private static void dump2() {
         Throwable ex = new Throwable();
-        Log.e(TAG,Thread.currentThread().getName(),ex);
+        Log.i(TAG,Thread.currentThread().getName(),ex);
     }
 }
